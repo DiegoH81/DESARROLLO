@@ -16,5 +16,8 @@
     <h1>{{ current_user.email }}</h1>
     <h1>{{ current_user.id }}</h1>
     <h1>{{ current_user.user }}</h1>
+    <div class="logout_button">
+        <a href="{{ url_for ('logout') }}">Cerrar Sesión</a>
+    </div>
 </div>
 {% endblock %}

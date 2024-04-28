@@ -8,33 +8,40 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/register_login.css') }}">
 {% endblock %}
 
+{% block customJS %}
+<script defer src="{{ url_for('static', filename='js/check_errors_register.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 <div class="container_form">
-    <form action="#">
+    <form action="/register" id="form-data" method="post">
         <h1>Register</h1>
         <div class="inputs_container">
             <h3>NOMBRE COMPLETO</h3>
-            <input type="text" placeholder="Nombre Completo" required>
+            <input type="text" placeholder="Nombre Completo" name="nombre" required>
         </div>
         <div class="inputs_container">
             <h3>USUARIO</h3>
-            <input type="text" placeholder="Usuario" required>
+            <input type="text" placeholder="Usuario" name="user" id = "usuario" required>
         </div>
         <div class="inputs_container">
             <h3>E-MAIL</h3>
-            <input type="email" placeholder="E-mail" required>
+            <input type="email" name="e_mail" placeholder="E-mail" required>
         </div>
         <div class="inputs_container">
             <h3>CONTRASEÑA</h3>
-            <input type="password" placeholder="Contraseña" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" id = "password" required>
         </div>
         <div class="inputs_container">
             <h3>CONFIRMAR CONTRASEÑA</h3>
-            <input type="password" placeholder="Contraseña" required>
+            <input type="password" placeholder="Contraseña" id = 'second_password' required>
         </div>
         
-
+        <div id="error"></div>
         <button type="submit" class="btn">Registrar</button>
+        <div class="registrar">
+            <p>Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a></p>
+        </div>
     </form>
 </div>
 {% endblock %}

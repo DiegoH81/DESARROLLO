@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Mi perfil
+{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/normal.css') }}">
+{% endblock %}
+
+{% block customJS %}
+<script defer src="{{ url_for('static', filename='js/check_errors.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<form action="/my_profile" id="form-data" class="profile_form" method="post">
+    <div class="img_profile">
+        <img src="/static/img/profile.png" width="150px">
+    </div>
+    <div class="profile_content" >
+        <h1>Información personal</h1>
+        <div class="inputs_container">
+            <h2>Nombre</h2>
+            <input type="text" id="nombre" name="nombre" class="inputs" placeholder="Nombre Completo" value="{{ current_user.nombre }}" required>
+        </div>
+        <div class="inputs_container">
+            <h2>Usuario</h2>
+            <input type="text" id="usuario" name="usuario" class="inputs" placeholder="Usuario" value="{{ current_user.user }}" required>
+        </div>
+        <div class="inputs_container">
+            <h2>Email</h2>
+            <input type="email" id="e-mail" name="e-mail"class="inputs" placeholder="E-mail" value="{{ current_user.email }}" required>
+        </div>
+        <div class="inputs_container">
+            <h2>Contraseña</h2>
+            <input type="text" id="password" name="password"class="inputs" placeholder="Contraseña" value="{{ current_user.password }}" required>
+        </div>
+
+        <div id="error"></div>
+        <button type="submit" class="btn">Guardar cambios</button>
+    </div>
+</form>
+
+{% endblock %}
