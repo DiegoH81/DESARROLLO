@@ -11,5 +11,10 @@
 {% block body %}
 <div class="container_form">
     <h1>Logeo exitoso!</h1>
+    <h1> {{ current_user.nombre }}</h1>
+    <h1>{{ current_user.password }}</h1>
+    <h1>{{ current_user.email }}</h1>
+    <h1>{{ current_user.id }}</h1>
+    <h1>{{ current_user.user }}</h1>
 </div>
 {% endblock %}
