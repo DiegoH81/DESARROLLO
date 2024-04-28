@@ -19,3 +19,16 @@ class UserModel():
             return new_user
         else:
             return None
+        
+    @classmethod
+    def get_by_id(self, data_base, id):
+        cursor = data_base.connection.cursor()
+        sql = "SELECT id, nombre, user, password, email FROM test_flask.usuarios WHERE id = {}".format(id)
+        cursor.execute(sql)
+        ROW = cursor.fetchone()
+        
+        print (ROW)
+        if ROW != None: #Si existe el usuario
+            return User(ROW[0], ROW[1], ROW[2], ROW[3], ROW[4]) #Reotrno el usuario con los datos cargados
+        else:
+            return None
