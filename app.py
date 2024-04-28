@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_mysqldb import MySQL
-#from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required
 
 #MODELOS
 from models.UserModel import UserModel
@@ -16,8 +16,11 @@ MYSQL_DB = 'test_flask'
 app = Flask (__name__)
 app.secret_key = 'adasdasdasdasdasdasdasd'
 data_base = MySQL(app)
-#login_manager_app =  LoginManager(app)
+login_manager_app =  LoginManager(app)
 
+@login_manager_app.user_loader
+def load_user(id):
+    return UserModel.get_by_id(data_base, id)
 
 @app.route('/')
 def index():
@@ -32,6 +35,7 @@ def login():
         
         if logged_user != None:
             if logged_user.password == True:
+                login_user(logged_user)
                 return redirect(url_for('home'))
             else:
                 flash("Contraseña invalida")
