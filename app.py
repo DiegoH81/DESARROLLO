@@ -110,7 +110,12 @@ def products():
 def delete_product_id(id):
     ProductModel.delete_product(data_base, id)
     return redirect(url_for('products'))
-    
+#COMPRAR PRODUCTOS
+@app.route('/buy_product/<int:id>')
+def buy_product(id):
+    ProductModel.update_status(data_base, current_user.id, id)
+    return redirect(url_for('products'))
+
 #AÑADIR PRODUCTO
 @app.route('/add_product', methods = ['GET', 'POST'])
 def add_product():
@@ -125,6 +130,22 @@ def add_product():
             return redirect(url_for('products'))
     else:    
         return render_template('create_product.html')
+#ACTUALIZAR PRODUCTO
+@app.route('/update_product/<int:id>', methods = ['GET', 'POST'])
+def update_product(id):
+    if request.method == 'POST':
+        producto = ProductModel.get_by_id(data_base, id)
+        producto.precio = request.form['precio']
+        ProductModel.update_product(data_base, producto)
+        if current_user.id != 1:
+            return redirect(url_for('products'))
+        else:
+            return redirect(url_for('products'))
+            
+    else:
+        print(ProductModel.get_by_id(data_base, id).product_pic)
+        return render_template('update_product.html', product_info = ProductModel.get_by_id(data_base, id))
+    
 
 @app.route('/logout')
 def logout():

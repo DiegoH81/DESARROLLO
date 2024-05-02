@@ -26,7 +26,7 @@ class ProductModel():
     @classmethod
     def update_product(self, data_base, product_obj):
         cursor = data_base.connection.cursor()
-        sql_update = """UPDATE test_flask.productos SET nombre_producto = '{}', descripcion = '{}', precio = {}, status = {}, id_comprador = {}
+        sql_update = """UPDATE test_flask.productos SET nombre_producto = '{}', decripcion = '{}', precio = {}, status = {}, id_comprador = {}
                         WHERE id = '{}'""".format(product_obj.nombre, product_obj.descripcion, product_obj.precio, product_obj.status, product_obj.buyer_id, product_obj.id)
         cursor.execute(sql_update)
         data_base.connection.commit()
@@ -40,3 +40,13 @@ class ProductModel():
         cursor.execute(sql_delete)
         data_base.connection.commit()
         return True
+    
+    @classmethod
+    def update_status(self, data_base, buyer_id, product_id):
+        cursor = data_base.connection.cursor()
+        sql_update = """UPDATE test_flask.productos SET status = '{}', id_comprador = '{}'
+                        WHERE id = '{}'""".format(1 ,buyer_id, product_id)
+        cursor.execute(sql_update)
+        data_base.connection.commit()
+        return True
+        
