@@ -13,7 +13,8 @@
 {% endblock %}
 
 {% block body %}
-<form action="/my_profile" id="form-data" class="form-container" method="post">
+
+<div class="form-container">
     <div class="img_profile">
         <img src="/static/profile_pictures/{{current_user.profile_pic}}" width="150px" style="border-radius: 50%">
     </div>
@@ -21,24 +22,22 @@
         <h1>Información personal</h1>
         <div class="inputs_container">
             <h2>Nombre</h2>
-            <input type="text" id="nombre" name="nombre" class="inputs" placeholder="Nombre Completo" value="{{ current_user.nombre }}" required>
+            <h3>{{ current_user.nombre }}</h3>
         </div>
         <div class="inputs_container">
             <h2>Usuario</h2>
-            <input type="text" id="usuario" name="usuario" class="inputs" placeholder="Usuario" value="{{ current_user.user }}" required>
+            <h3>{{ current_user.user }}</h3>
         </div>
         <div class="inputs_container">
             <h2>Email</h2>
-            <input type="email" id="e-mail" name="e-mail"class="inputs" placeholder="E-mail" value="{{ current_user.email }}" required>
+            <h3>{{ current_user.email }}</h3>
         </div>
         <div class="inputs_container">
             <h2>Contraseña</h2>
-            <input type="text" id="password" name="password"class="inputs" placeholder="Contraseña" value="{{ current_user.password }}" required>
+            <h3>{{ current_user.password }}</h3>
         </div>
 
-        <div id="error"></div>
-        <button type="submit" class="btn">Guardar cambios</button>
+        <a href="/update_profile/{{current_user.id}}" class="button_a">Editar perfil</a>
     </div>
-</form>
-
+</div>
 {% endblock %}

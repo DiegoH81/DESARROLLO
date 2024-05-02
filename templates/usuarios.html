@@ -12,7 +12,7 @@
 <div class="container_form">
     <h1>Usuarios!</h1>
     {% for user in users_list %}
-        <li>{{ user.id }} - {{ user.nombre }} - {{ user.user }} - {{ user.password }} - - {{ user.email }} - {{ user.profile_pic }} <a href="/delete_users/{{user.id}}">Borrar</a></li>
+        <li>{{ user.id }} - {{ user.nombre }} - {{ user.user }} - {{ user.password }} - {{ user.email }} - {{ user.profile_pic }} <a href="/delete_users/{{user.id}}">Borrar</a></li>
     {% endfor %}
 </div>
 {% endblock %}

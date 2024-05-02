@@ -12,7 +12,7 @@
 <div class="container_form">
     <h1>Productosss!</h1>
     {% for product in products %}
-        <li>{{ product.nombre }} - {{ product.descripcion }} - {{ product.precio }} - {{ product.product_pic }} <a href="/delete_product/{{product.id}}">Borrar</a></li>
+        <li>{{ product.nombre }} - {{ product.descripcion }} - {{ product.precio }} - {{ product.product_pic }} - {{ product.status }} - {{ product.buyer_id }} <a href="/delete_product/{{product.id}}">Borrar</a></li>
     {% endfor %}
 </div>
 {% endblock %}

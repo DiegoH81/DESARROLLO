@@ -4,8 +4,8 @@ class ProductModel():
     @classmethod
     def create_product(self, data_base, product_obj):
         cursor = data_base.connection.cursor()
-        sql_insert_product = """INSERT INTO test_flask.productos (id_usuario, nombre_producto, decripcion, precio, foto)
-                                 VALUES ('{}', '{}', '{}', '{}', '{}')""".format(product_obj.user_id, product_obj.nombre, product_obj.descripcion, product_obj.precio, product_obj.product_pic)
+        sql_insert_product = """INSERT INTO test_flask.productos (id_usuario, nombre_producto, decripcion, precio, foto, status, id_comprador)
+                                 VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')""".format(product_obj.user_id, product_obj.nombre, product_obj.descripcion, product_obj.precio, product_obj.product_pic, product_obj.status, product_obj.buyer_id)
         cursor.execute(sql_insert_product)
         data_base.connection.commit()
         return True
@@ -13,12 +13,12 @@ class ProductModel():
     @classmethod
     def get_by_id(self, data_base, id):
         cursor = data_base.connection.cursor()
-        sql_get_id = "SELECT id, id_usuario, nombre_producto, decripcion, precio, foto FROM test_flask.productos WHERE id = {}".format(id)
+        sql_get_id = "SELECT id, id_usuario, nombre_producto, decripcion, precio, foto, status, id_comprador FROM test_flask.productos WHERE id = {}".format(id)
         cursor.execute(sql_get_id)
         ROW = cursor.fetchone()
         
         if ROW != None: #Si existe el producto
-            return Product(ROW[0], ROW[1], ROW[2], ROW[3], ROW[4], ROW[5]) #Reotrno el producto con los datos cargados
+            return Product(ROW[0], ROW[1], ROW[2], ROW[3], ROW[4], ROW[5], ROW[6], ROW[7]) #Reotrno el producto con los datos cargados
         else:
             return None
     
@@ -26,8 +26,8 @@ class ProductModel():
     @classmethod
     def update_product(self, data_base, product_obj):
         cursor = data_base.connection.cursor()
-        sql_update = """UPDATE test_flask.productos SET nombre_producto = '{}', descripcion = '{}', precio = {}
-                        WHERE id = '{}'""".format(product_obj.nombre, product_obj.descripcion, product_obj.precio, product_obj.id)
+        sql_update = """UPDATE test_flask.productos SET nombre_producto = '{}', descripcion = '{}', precio = {}, status = {}, id_comprador = {}
+                        WHERE id = '{}'""".format(product_obj.nombre, product_obj.descripcion, product_obj.precio, product_obj.status, product_obj.buyer_id, product_obj.id)
         cursor.execute(sql_update)
         data_base.connection.commit()
         return True

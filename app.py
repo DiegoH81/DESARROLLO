@@ -70,16 +70,20 @@ def registro():
         return render_template('register.html')
 
 #PERFIL
-@app.route('/my_profile', methods = ['GET', 'POST'])
+@app.route('/update_profile/<int:id>', methods = ['GET', 'POST'])
 @login_required
-def my_profile():
+def update_profile_web(id):
     if request.method == 'POST':
         user = User (current_user.id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'], current_user.profile_pic)
         print(current_user)
         if UserModel.update_profile(user, data_base):
             return redirect(url_for('logout'))
     else:
-        return render_template('my_profile.html')
+        return render_template('update_profile.html', user_info = UserModel.get_by_id(data_base, id))
+    
+@app.route('/my_profile')
+def profile():
+    return render_template('my_profile.html')
 
 #USUARIOS
 @app.route('/users')
@@ -96,8 +100,7 @@ def delete_user_id(id):
 @app.route('/products')
 def products():
     products_list = UserProductModel.get_all_products(data_base)
-    print("PRODUCTOS:")
-    print(products_list[0].nombre)
+    print('PRODUCTO PRUEBA', products_list[0].status, products_list[0].buyer_id)
     return render_template('productos.html', products = products_list)
 #BORRAR PRODUCTOS
 @app.route('/delete_product/<int:id>')
@@ -111,7 +114,7 @@ def add_product():
     print("USUARIO ACTUAL, PRODUCTO", current_user.id)
     if request.method == 'POST':
         file = request.files['imagen']
-        producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'], file.filename)
+        producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'], file.filename, 0, 0)
         if ProductModel.create_product(data_base, producto):
             file.save(os.path.join(app.config['PRODUCTS_UPLOAD_FOLDER'], file.filename)) #Guarda imagen
             return redirect(url_for('products'))
