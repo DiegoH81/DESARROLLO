@@ -1,7 +1,6 @@
 from models.user import User
 
 class UserModel():
-    
     @classmethod
     def login(self, user_obj, data_base):
         cursor = data_base.connection.cursor()
@@ -55,3 +54,23 @@ class UserModel():
             return User(ROW[0], ROW[1], ROW[2], ROW[3], ROW[4]) #Reotrno el usuario con los datos cargados
         else:
             return None
+    @classmethod
+    def delete_user(self, data_base, id):
+        cursor = data_base.connection.cursor()
+        sql_delete = "DELETE FROM test_flask.usuarios WHERE id = {}".format(id)
+        cursor.execute(sql_delete)
+        data_base.connection.commit()
+        return True
+    @classmethod
+    def get_all_users(self, data_base):
+        cursor = data_base.connection.cursor()
+        sql_get_all_users = "SELECT id FROM test_flask.usuarios"
+        cursor.execute(sql_get_all_users)
+        all_users_SQL = cursor.fetchall()
+        
+        all_users_list = []
+        for user_id in all_users_SQL:
+            user = UserModel.get_by_id(data_base, user_id[0])
+            if user != None:
+                all_users_list.append(user)
+        return all_users_list

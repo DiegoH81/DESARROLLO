@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    USUARIOS
+{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register_login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container_form">
+    <h1>Usuarios!</h1>
+    {% for user in users_list %}
+        <li>{{ user.id }} - {{ user.nombre }} - {{ user.user }} - {{ user.password }} - - {{ user.email }}<a href="/delete_users/{{user.id}}">Borrar</a></li>
+    {% endfor %}
+</div>
+{% endblock %}

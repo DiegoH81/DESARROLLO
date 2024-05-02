@@ -1,11 +1,14 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_mysqldb import MySQL
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 #MODELOS
 from models.UserModel import UserModel
+from models.productModel import ProductModel
+from models.UserProductModel import UserProductModel
 #ENTIDADES
 from models.user import User
+from models.producto import Product
 
 
 MYSQL_HOST = 'localhost'
@@ -17,8 +20,6 @@ app = Flask (__name__)
 app.secret_key = 'adasdasdasdasdasdasdasd'
 data_base = MySQL(app)
 login_manager_app =  LoginManager(app)
-
-current_user_id = 0
 
 @login_manager_app.user_loader
 def load_user(id):
@@ -34,10 +35,8 @@ def login():
     if request.method == 'POST':
         user = User(0, '', (request.form['user']), (request.form['password']), '')
         logged_user = UserModel.login(user, data_base)
-        global current_user_id
         if logged_user != None:
             if logged_user.password == True:
-                current_user_id = logged_user.id
                 login_user(logged_user)
                 return redirect(url_for('home'))
             else:
@@ -66,14 +65,51 @@ def registro():
 @app.route('/my_profile', methods = ['GET', 'POST'])
 @login_required
 def my_profile():
+    print("USUARIO ACTUAL, PERFIL", current_user.id)
     if request.method == 'POST':
-        print("Id actual PERFIL: ", current_user_id)
-        user = User (current_user_id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'])
+        user = User (current_user.id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'])
         if UserModel.update_profile(user, data_base):
-            return redirect(url_for('login'))
+            return redirect(url_for('logout'))
     else:
         return render_template('my_profile.html')
+
+#USUARIOS
+@app.route('/users')
+def users():
+    users_list = UserModel.get_all_users(data_base)
+    return render_template('usuarios.html', users_list = users_list)
+#BORRAR USUARIOS
+@app.route('/delete_users/<int:id>')
+def delete_user_id(id):
+    UserModel.delete_user(data_base, id)    
+    return redirect(url_for('users'))
+
+#PRODUCTOS
+@app.route('/products')
+def products():
+    products_list = UserProductModel.get_all_products(data_base)
+    print("PRODUCTOS:")
+    print(products_list[0].nombre)
+    return render_template('productos.html', products = products_list)
+#BORRAR PRODUCTOS
+@app.route('/delete_product/<int:id>')
+def delete_product_id(id):
+    ProductModel.delete_product(data_base, id)
+    return redirect(url_for('products'))
     
+#AÑADIR PRODUCTO
+@app.route('/add_product', methods = ['GET', 'POST'])
+def add_product():
+    print("USUARIO ACTUAL, PRODUCTO", current_user.id)
+    if request.method == 'POST':
+        producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'])
+        if ProductModel.create_product(data_base, producto):
+            return redirect(url_for('products'))
+        else:
+            return redirect(url_for('products'))
+    else:    
+        return render_template('create_product.html')
+
 @app.route('/logout')
 def logout():
     logout_user()

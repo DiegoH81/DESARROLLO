@@ -37,6 +37,16 @@
             <input type="password" placeholder="Contraseña" id = 'second_password' required>
         </div>
         
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="error">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
         <div id="error"></div>
         <button type="submit" class="btn">Registrar</button>
         <div class="registrar">

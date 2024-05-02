@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Añadir producto
+{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/normal.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/add_product" id="form-data" class="form-container" method="post">
+    <div class="img_profile">
+        <img src="/static/img/mas.png" width="130px" style="padding: 10px;">
+    </div>
+    <div class="content-container" >
+        <h1>Añadir producto</h1>
+        <div class="inputs_container">
+            <h2>Nombre del producto</h2>
+            <input type="text" id="nombre" name="nombre" class="inputs" placeholder="Nombre del producto" required>
+        </div>
+        <div class="inputs_container">
+            <h2>Descripcion</h2>
+            <input type="text" id="usuario" name="descripcion" class="inputs" placeholder="Descripcion del producto" required>
+        </div>
+        <div class="inputs_container">
+            <h2>Precio</h2>
+            <input type="number" id="e-mail" name="precio"class="inputs" placeholder="Precio" required>
+        </div>
+        
+        <div id="error"></div>
+        <button type="submit" class="btn">Enviar</button>
+    </div>
+</form>
+
+{% endblock %}
