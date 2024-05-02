@@ -9,15 +9,19 @@ from models.UserProductModel import UserProductModel
 #ENTIDADES
 from models.user import User
 from models.producto import Product
-
+import os
 
 MYSQL_HOST = 'localhost'
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''
 MYSQL_DB = 'test_flask'
 
+
 app = Flask (__name__)
 app.secret_key = 'adasdasdasdasdasdasdasd'
+app.config['UPLOAD_FOLDER'] = 'static/profile_pictures'
+app.config['PRODUCTS_UPLOAD_FOLDER'] = 'static/products_pictures'
+
 data_base = MySQL(app)
 login_manager_app =  LoginManager(app)
 
@@ -33,11 +37,14 @@ def index():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = User(0, '', (request.form['user']), (request.form['password']), '')
+        user = User(0, '', (request.form['user']), (request.form['password']), '', '')
         logged_user = UserModel.login(user, data_base)
+        print("LOGGED USER: ", logged_user.profile_pic)
         if logged_user != None:
             if logged_user.password == True:
                 login_user(logged_user)
+                print("LOGGED USER LUEGO DE IF: ", logged_user.profile_pic)
+                print("LOGGED USER LUEGO DE IF: ", current_user.profile_pic)
                 return redirect(url_for('home'))
             else:
                 flash("Contraseña invalida")
@@ -51,23 +58,24 @@ def login():
 @app.route('/register', methods = ['GET', 'POST'])
 def registro():
     if request.method == 'POST':
-        user = User (0, request.form['nombre'], request.form['user'], request.form['contrasena'], request.form['e_mail'])
+        file = request.files['imagen']
+        user = User (0, request.form['nombre'], request.form['user'], request.form['contrasena'], request.form['e_mail'], file.filename)
         if UserModel.register(user, data_base):
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename)) #Guarda imagen
             return redirect(url_for('login'))
         else:
             flash('El usuario ya existe!')
-            return render_template('register.html')    
+            return render_template('register.html')
     else:
         return render_template('register.html')
-    
 
 #PERFIL
 @app.route('/my_profile', methods = ['GET', 'POST'])
 @login_required
 def my_profile():
-    print("USUARIO ACTUAL, PERFIL", current_user.id)
     if request.method == 'POST':
-        user = User (current_user.id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'])
+        user = User (current_user.id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'], current_user.profile_pic)
+        print(current_user)
         if UserModel.update_profile(user, data_base):
             return redirect(url_for('logout'))
     else:
@@ -102,8 +110,10 @@ def delete_product_id(id):
 def add_product():
     print("USUARIO ACTUAL, PRODUCTO", current_user.id)
     if request.method == 'POST':
-        producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'])
+        file = request.files['imagen']
+        producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'], file.filename)
         if ProductModel.create_product(data_base, producto):
+            file.save(os.path.join(app.config['PRODUCTS_UPLOAD_FOLDER'], file.filename)) #Guarda imagen
             return redirect(url_for('products'))
         else:
             return redirect(url_for('products'))

@@ -15,7 +15,7 @@
 {% block body %}
 <form action="/my_profile" id="form-data" class="form-container" method="post">
     <div class="img_profile">
-        <img src="/static/img/profile.png" width="150px">
+        <img src="/static/profile_pictures/{{current_user.profile_pic}}" width="150px" style="border-radius: 50%">
     </div>
     <div class="content-container" >
         <h1>Información personal</h1>

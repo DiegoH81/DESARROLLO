@@ -6,10 +6,11 @@
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/normal.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block body %}
-<form action="/add_product" id="form-data" class="form-container" method="post">
+<form action="/add_product" id="form-data" class="form-container" method="post" enctype="multipart/form-data">
     <div class="img_profile">
         <img src="/static/img/mas.png" width="130px" style="padding: 10px;">
     </div>
@@ -27,7 +28,16 @@
             <h2>Precio</h2>
             <input type="number" id="e-mail" name="precio"class="inputs" placeholder="Precio" required>
         </div>
-        
+        <h2>SUBIR IMAGEN</h2>
+        <div class="img-container">
+            <div class="product-img">
+                <img src = "/static/img/profile.png" id="foto">
+                <input type="file" name = 'imagen' id = 'file' required>
+                <label for="file" id="upload_btn"><i class="fas  fa-camera"></i></label>
+            </div>
+            <span id="file_name">imagen.jpg</span>
+        </div>
+        <script src="{{ url_for('static', filename='js/img.js') }}"></script>
         <div id="error"></div>
         <button type="submit" class="btn">Enviar</button>
     </div>

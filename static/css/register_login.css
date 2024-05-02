@@ -57,6 +57,12 @@ body
     color: #CFCFCF;
     text-indent: 10px;
 }
+
+.user_img
+{
+
+}
+
 .container_form .btn
 {
     width: 100%;
@@ -70,6 +76,7 @@ body
     color: white;
     margin-top: 15px;
 }
+
 .logout_button
 {
     text-align: center;
@@ -118,4 +125,51 @@ body
     align-items: center;
     border-radius: 5px;
     margin-bottom: 7px;
+}
+.img-container
+{
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+}
+.user_img
+{   
+    align-items: center;
+    margin-bottom: 20px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+#foto
+{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+#file
+{
+    display: none;
+}
+#upload_btn
+{
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    padding: 6px 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    margin-top: 80px;
+    transform: translateX(-100%);
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+    box-shadow: 2px 4px 4px black;
+}
+#file_name
+{
+    font-size: 20px;
+    color: #333;
+    margin-top: 5px;
 }
