@@ -39,7 +39,6 @@ def login():
     if request.method == 'POST':
         user = User(0, '', (request.form['user']), (request.form['password']), '', '')
         logged_user = UserModel.login(user, data_base)
-        print("LOGGED USER: ", logged_user.profile_pic)
         if logged_user != None:
             if logged_user.password == True:
                 login_user(logged_user)
@@ -73,7 +72,6 @@ def registro():
 def update_profile_web(id):
     if request.method == 'POST':
         user = User (id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'], current_user.profile_pic)
-        print(current_user)
         if UserModel.update_profile(user, data_base):
             if current_user.id != 1:
                 return redirect(url_for('logout'))
@@ -118,7 +116,6 @@ def buy_product(id):
 #AÑADIR PRODUCTO
 @app.route('/add_product', methods = ['GET', 'POST'])
 def add_product():
-    print("USUARIO ACTUAL, PRODUCTO", current_user.id)
     if request.method == 'POST':
         file = request.files['imagen']
         producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'], file.filename, 0, 0)
@@ -141,7 +138,6 @@ def update_product(id):
         else:
             return redirect(url_for('products'))
     else:
-        print(ProductModel.get_by_id(data_base, id).product_pic)
         return render_template('update_product.html', product_info = ProductModel.get_by_id(data_base, id))
     
 
