@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    USUARIOS
+    PRODUCTOS
 {% endblock %}
 
 {% block customCSS %}
@@ -10,7 +10,7 @@
 {% block body %}
     <main class="table" id="customers_table">
         <section class="table__header">
-            <h1 style="color: white;">Usuarios</h1>
+            <h1 style="color: white;">Productos</h1>
             <div class="input-group">
                 <input type="search" placeholder="Buscar datos...">
                 <img src="/static/img/lupa.png" alt="">
@@ -44,12 +44,24 @@
                             {% else %}
                                 <div class="status-box green">Disponible</div>
                             {% endif %}
-                             </td>
+                            </td>
                             <td>
+                                {% if current_user.id != 1 %}
+
                                 {% if producto.status == 1 %}
                                     <a href="#" class="status-box red">No disponible</a>
                                 {% else %}
-                                    <a href="/buy_product/{{producto.id}}" class="btn-update">Comprar</a>
+                                    {% if current_user.id == producto.user_id %}
+                                        <a href="#" class="status-box red">No disponible</a>
+                                    {% else %}
+                                        <a href="/buy_product/{{producto.id}}" class="btn-update">Comprar</a>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% else %}
+                                <a href="/update_product/{{producto.id}}" class="btn-update">Actualizar</a>
+                                <a href="/delete_product/{{producto.id}}" class="btn-delete">Borrar</a>
+
                                 {% endif %}
                             </td>
                         </tr>
