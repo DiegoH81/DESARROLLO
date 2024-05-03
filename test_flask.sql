@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-05-2024 a las 05:27:46
+-- Tiempo de generación: 03-05-2024 a las 13:06:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,16 +47,16 @@ INSERT INTO `productos` (`id`, `id_usuario`, `nombre_producto`, `decripcion`, `p
 (8, 1, 'Laptop', 'laptop', 5320, 'laptop.jpg', 1, 5),
 (10, 8, 'Mouse', 'mouse', 180, 'dasdasdasdasfaf.jpg', 1, 6),
 (11, 5, 'Mouse', 'mouse', 102, 'dasdadasdas.jpg', 1, 8),
-(12, 1, 'Samsung Smart TV 65\" QLED 4K', 'Retroiluminación directa', 3999, 'tv.jpg', 1, 6),
-(13, 4, 'Samsung Smart TV 85\" Crystal UHD', 'Colores realistas para que puedas ver todos los detalles. ', 5999, 'tv.jpg', 0, 0),
-(14, 5, 'LG NanoCell 55\" NANO77 4K Smart TV', 'Amplia Gama de Colores: Nano Color. Procesado', 2131, 'tv2.jpg', 0, 0),
-(15, 6, 'LG OLED 48\" A2 4K Smart TV con ThinQ AI', 'Amplia Gama de Colores: OLED Color.', 2399, 'tv2.jpg', 0, 0),
-(16, 8, 'Televisor Philips 65\" 4K Ultra HD', 'Puerto Ethernet: Si. Resolución: UHD 4K. Alto: 90.8 cms. Ancho: 1.45 cms. ', 1799, 'tv_philips.jpg', 0, 0),
-(17, 1, 'Iphone 15 Pro 128Gb', 'Peso: 0.187. Memoria interna: 128GB.', 5599, 'iphone15.jpg', 0, 0),
-(18, 4, 'Celular Samsung Galaxy S23', 'Tipo de producto: Smartphone.', 4499, 's23.jpg', 0, 0),
-(19, 5, 'Celular Xiaomi Redmi Note 13 Pro', 'Capacidad de almacenamiento: 8+256 GB. Tecnología celular: 4G. Procesador y generación: MediaTek Hel', 1249, 'xiaomi.jpg', 0, 0),
-(20, 6, 'Celular Honor X7B 6.8\"', 'Capacidad de almacenamiento: 256GB. Tamaño pantalla celulares: 6.8\'. Tipo de batería: Li-ion Polymer', 799, 'honor.jpg', 0, 0),
-(21, 8, 'Celular Huawei Nova 10 SE 6.67\"', 'Tamaño pantalla celulares: 6.67\'. Cámara frontal: 16 MP P. Cámara principal: 108 MP.', 900, 'nova.jpg', 0, 0);
+(12, 1, 'Samsung TV65\"', 'Retroiluminación directa', 3999, 'tv.jpg', 1, 6),
+(13, 4, 'SamsungTV85\"', 'Colores realistas.', 5999, 'tv.jpg', 0, 0),
+(14, 5, 'LG55\"', 'Amplia Gama de Colores', 2131, 'tv2.jpg', 0, 0),
+(15, 6, 'LG OLED 48\"', 'Colores: OLED Color.', 2399, 'tv2.jpg', 0, 0),
+(16, 8, 'Philips 65\" 4K', 'Resolución: UHD 4K.', 1799, 'tv_philips.jpg', 0, 0),
+(17, 1, 'Iphone 15Pro', '128GB.', 5599, 'iphone15.jpg', 0, 0),
+(18, 4, 'Galaxy S23', 'Smartphone.', 4499, 's23.jpg', 0, 0),
+(19, 5, 'Redmi Note 13', 'Almacenamiento:256 GB.', 1249, 'xiaomi.jpg', 0, 0),
+(20, 6, 'Honor X7B 6.8\"', 'Tamaño pantalla: 6.8\'.', 799, 'honor.jpg', 0, 0),
+(21, 8, 'Huawei Nova 10', 'Cámara frontal: 16 MP P.', 900, 'nova.jpg', 0, 0);
 
 -- --------------------------------------------------------
 
