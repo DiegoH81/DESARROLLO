@@ -9,6 +9,7 @@ from models.UserProductModel import UserProductModel
 #ENTIDADES
 from models.user import User
 from models.producto import Product
+
 import os
 
 MYSQL_HOST = 'localhost'
@@ -92,7 +93,7 @@ def users():
 #BORRAR USUARIOS
 @app.route('/delete_users/<int:id>')
 def delete_user_id(id):
-    UserModel.delete_user(data_base, id)    
+    UserModel.delete_user(data_base, id)
     return redirect(url_for('users'))
 
 #PRODUCTOS
@@ -119,13 +120,13 @@ def add_product():
     if request.method == 'POST':
         file = request.files['imagen']
         producto = Product(0, current_user.id, request.form['nombre'], request.form['descripcion'], request.form['precio'], file.filename, 0, 0)
-        if ProductModel.create_product(data_base, producto):
-            file.save(os.path.join(app.config['PRODUCTS_UPLOAD_FOLDER'], file.filename)) #Guarda imagen
-            return redirect(url_for('products'))
-        else:
-            return redirect(url_for('products'))
-    else:    
+        ProductModel.create_product(data_base, producto)
+        
+        file.save(os.path.join(app.config['PRODUCTS_UPLOAD_FOLDER'], file.filename)) #Guarda imagen
+        return redirect(url_for('products'))
+    else:
         return render_template('create_product.html')
+
 #ACTUALIZAR PRODUCTO
 @app.route('/update_product/<int:id>', methods = ['GET', 'POST'])
 def update_product(id):
@@ -133,13 +134,9 @@ def update_product(id):
         producto = ProductModel.get_by_id(data_base, id)
         producto.precio = request.form['precio']
         ProductModel.update_product(data_base, producto)
-        if current_user.id != 1:
-            return redirect(url_for('products'))
-        else:
-            return redirect(url_for('products'))
+        return redirect(url_for('products'))
     else:
         return render_template('update_product.html', product_info = ProductModel.get_by_id(data_base, id))
-    
 
 @app.route('/logout')
 def logout():

@@ -43,7 +43,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     {% for producto in products %}
                         <tr>
                             <td> {{ producto.id }} </td>
@@ -61,16 +60,15 @@
                             </td>
                             <td>
                                 {% for comprador in usuarios %}
-                                
                                     {% if comprador.id == producto.buyer_id %}
                                         <img src="{{ url_for('static', filename='profile_pictures/' + comprador.profile_pic) }}" alt="Profile Picture">
                                         {{ comprador.nombre }}
-                                    {% endif %}                                
+                                    {% endif %}               
                                 {% endfor %}
                             </td>
                             <td>
                                 {% if current_user.id != 1 %}
-                                    {% if producto.status == 1 %}
+                                    {% if producto.status == 1 %}   
                                         <a href="#" class="status-box red">No disponible</a>
                                     {% else %}
                                         {% if current_user.id == producto.user_id %}

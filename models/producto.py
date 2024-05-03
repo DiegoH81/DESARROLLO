@@ -17,5 +17,3 @@ class Product():
         self.product_pic = in_pic
         self.status = in_status
         self.buyer_id = in_buyer_id
-        
-    

@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tabla_usuarios.css') }}">
 {% endblock %}
 {% block body %}
-{<div class="nav_bar">
+{<div class="nav_bar">  
     <ul>
         <li style="margin-right: 50px;">TIENDA</li>
         <li><a href = "/products">Productos</a></li>
@@ -42,7 +42,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 {% for user in users_list %}
                     <tr>
                         <td> {{ user.id }} </td>
