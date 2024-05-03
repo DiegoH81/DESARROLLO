@@ -25,6 +25,7 @@
                         <th class="header-text"> Descripcion <span class="icon-arrow">&UpArrow;</span></th>
                         <th class="header-text"> Precio <span class="icon-arrow">&UpArrow;</span></th>
                         <th class="header-text"> Status <span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="header-text"> Comprador <span class="icon-arrow">&UpArrow;</span></th>
                         <th class="header-text"> Acciones </th>
                     </tr>
                 </thead>
@@ -46,22 +47,28 @@
                             {% endif %}
                             </td>
                             <td>
+                                {% for comprador in usuarios %}
+                                
+                                    {% if comprador.id == producto.buyer_id %}
+                                        <img src="{{ url_for('static', filename='profile_pictures/' + comprador.profile_pic) }}" alt="Profile Picture">
+                                        {{ comprador.nombre }}
+                                    {% endif %}                                
+                                {% endfor %}
+                            </td>
+                            <td>
                                 {% if current_user.id != 1 %}
-
-                                {% if producto.status == 1 %}
-                                    <a href="#" class="status-box red">No disponible</a>
-                                {% else %}
-                                    {% if current_user.id == producto.user_id %}
+                                    {% if producto.status == 1 %}
                                         <a href="#" class="status-box red">No disponible</a>
                                     {% else %}
-                                        <a href="/buy_product/{{producto.id}}" class="btn-update">Comprar</a>
+                                        {% if current_user.id == producto.user_id %}
+                                            <a href="#" class="status-box red">No disponible</a>
+                                        {% else %}
+                                            <a href="/buy_product/{{producto.id}}" class="btn-update">Comprar</a>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-
                                 {% else %}
-                                <a href="/update_product/{{producto.id}}" class="btn-update">Actualizar</a>
-                                <a href="/delete_product/{{producto.id}}" class="btn-delete">Borrar</a>
-
+                                    <a href="/update_product/{{producto.id}}" class="btn-update">Actualizar</a>
+                                    <a href="/delete_product/{{producto.id}}" class="btn-delete">Borrar</a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -73,4 +80,3 @@
     
     <script src="{{ url_for('static', filename='js/tabla_usuarios.js') }}"></script>
 {% endblock %}
-

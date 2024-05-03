@@ -103,8 +103,8 @@ def delete_user_id(id):
 @app.route('/products')
 def products():
     products_list = UserProductModel.get_all_products(data_base)
-    print('PRODUCTO PRUEBA', products_list[0].status, products_list[0].buyer_id)
-    return render_template('productos.html', products = products_list)
+    usuarios = UserModel.get_all_users(data_base)
+    return render_template('productos.html', products = products_list, usuarios = usuarios)
 
 #BORRAR PRODUCTOS
 @app.route('/delete_product/<int:id>')
