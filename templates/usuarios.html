@@ -32,7 +32,6 @@
 
                     {% for user in users_list %}
                         <tr>
-                            
                             <td> {{ user.id }} </td>
                             <td> 
                                 <img src="{{ url_for('static', filename='profile_pictures/' + user.profile_pic) }}" alt="Profile Picture">

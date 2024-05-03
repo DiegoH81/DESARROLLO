@@ -105,6 +105,7 @@ def products():
     products_list = UserProductModel.get_all_products(data_base)
     print('PRODUCTO PRUEBA', products_list[0].status, products_list[0].buyer_id)
     return render_template('productos.html', products = products_list)
+
 #BORRAR PRODUCTOS
 @app.route('/delete_product/<int:id>')
 def delete_product_id(id):
@@ -141,7 +142,6 @@ def update_product(id):
             return redirect(url_for('products'))
         else:
             return redirect(url_for('products'))
-            
     else:
         print(ProductModel.get_by_id(data_base, id).product_pic)
         return render_template('update_product.html', product_info = ProductModel.get_by_id(data_base, id))
@@ -164,7 +164,6 @@ def pagina_no_encontrada(error):
 @app.errorhandler(401)
 def error_401(error):
     return redirect(url_for('login'))
-
 
 if __name__ == '__main__':
     app.run(debug = True)
