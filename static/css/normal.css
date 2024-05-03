@@ -8,18 +8,13 @@
 body
 {
     background-color: #F8F9FD;
-    display: flex;
 }
 .form-container
 {
     color: black;
-    height: 90%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    margin-left: 32%;
-    margin-right: 32%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    width: 100%;
+    margin: 30px auto;
+    width: 40%;
 }
 .form-container .img_profile
 {

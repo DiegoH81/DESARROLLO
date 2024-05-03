@@ -43,9 +43,7 @@ def login():
         if logged_user != None:
             if logged_user.password == True:
                 login_user(logged_user)
-                print("LOGGED USER LUEGO DE IF: ", logged_user.profile_pic)
-                print("LOGGED USER LUEGO DE IF: ", current_user.profile_pic)
-                return redirect(url_for('home'))
+                return redirect(url_for('products'))
             else:
                 flash("Contraseña invalida")
                 return render_template('login.html')    
@@ -151,11 +149,6 @@ def update_product(id):
 def logout():
     logout_user()
     return redirect(url_for('login'))
-
-@app.route('/home')
-@login_required
-def home():
-    return render_template('home.html')
 
 @app.errorhandler(404)
 def pagina_no_encontrada(error):

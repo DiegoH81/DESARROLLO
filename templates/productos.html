@@ -8,6 +8,16 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tabla_usuarios.css') }}">
 {% endblock %}
 {% block body %}
+<div class="nav_bar">
+    <ul>
+        <li style="margin-right: 50px;">TIENDA</li>
+        <li><a href = "/products">Productos</a></li>
+        <li><a href = "/add_product">Publicar producto</a></li>
+        <li><a href = "/my_profile" style="margin-right: 10px;" >Perfil</a></li>
+        <li style="float: right;"><a href="/logout">Cerrar Sesión</a></li>
+    </ul>
+</div>
+
     <main class="table" id="customers_table">
         <section class="table__header">
             <h1 style="color: white;">Productos</h1>
