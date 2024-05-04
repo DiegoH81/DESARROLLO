@@ -71,15 +71,16 @@ def registro():
 @app.route('/update_profile/<int:id>', methods = ['GET', 'POST'])
 @login_required
 def update_profile_web(id):
+    User_to_update = UserModel.get_by_id(data_base, id)
     if request.method == 'POST':
-        user = User (id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'], current_user.profile_pic)
+        user = User (id, request.form['nombre'], request.form['usuario'], request.form['password'], request.form['e-mail'], User_to_update.profile_pic)
         if UserModel.update_profile(user, data_base):
             if current_user.id != 1:
                 return redirect(url_for('logout'))
             else:
                 return redirect(url_for('users'))
     else:
-        return render_template('update_profile.html', user_info = UserModel.get_by_id(data_base, id))
+        return render_template('update_profile.html', user_info = User_to_update)
     
 @app.route('/my_profile')
 def profile():
